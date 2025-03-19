@@ -65,3 +65,4 @@
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.pdb
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.genruntimeconfig.cache
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/ref/BookStoreProject.API.dll
+/Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.sourcelink.json

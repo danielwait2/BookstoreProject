@@ -7,11 +7,12 @@ function BookList() {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
+    const [pageOrder, setPageOrder] = useState<string>('az');
 
     useEffect(() => {
         const fetchProjects = async () => {
             const response = await fetch(
-                `https://localhost:5000/api/BookStore/AllProjects?pageSize=${pageSize}&pageNumber=${pageNumber}`
+                `https://localhost:5000/api/BookStore/AllProjects?pageSize=${pageSize}&pageNumber=${pageNumber}&pageOrder=${pageOrder}`
             );
             const data = await response.json();
             setBooks(data.books);
@@ -20,7 +21,7 @@ function BookList() {
         };
 
         fetchProjects();
-    }, [pageSize, pageNumber, totalItems]); //dependency array or what to watch for
+    }, [pageSize, pageNumber, totalItems, pageOrder]); //dependency array or what to watch for
     return (
         <>
             <h1>Book List</h1>
@@ -94,6 +95,20 @@ function BookList() {
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
+                </select>
+            </label>
+            <br />
+            <label>
+                Page Order:
+                <select
+                    value={pageOrder}
+                    onChange={(p) => {
+                        setPageOrder(String(p.target.value));
+                        setPageNumber(1); // Reset page number when page size changes
+                    }}
+                >
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
                 </select>
             </label>
         </>

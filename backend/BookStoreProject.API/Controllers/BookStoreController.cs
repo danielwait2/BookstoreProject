@@ -13,17 +13,31 @@ namespace BookStoreProject.API.Controllers
         public BookStoreController(BookStoreDbContext temp) => _bookstoreContext = temp;
 
         [HttpGet("AllProjects")]
-        public IActionResult GetProjects(int pageSize = 5, int pageNumber = 1)
+        public IActionResult GetProjects(int pageSize = 5, int pageNumber = 1, string pageOrder = "az")
         {
-            var something = _bookstoreContext.Books.Skip((pageNumber-1)*pageSize).Take(pageSize).ToList();
+            var query = _bookstoreContext.Books.AsQueryable();
 
-            var totalNumProjects = _bookstoreContext.Books.Count();
-         
+            // Apply ordering based on pageOrder
+            if (pageOrder.ToLower() == "az")
+            {
+                query = query.OrderBy(b => b.Title); // Change Title to the relevant sorting field
+            }
+            else if (pageOrder.ToLower() == "za")
+            {
+                query = query.OrderByDescending(b => b.Title);
+            }
+
+            var paginatedBooks = query.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var totalNumBooks = _bookstoreContext.Books.Count();
+
             return Ok(new
             {
-                Books = something,
-                TotalNumBooks = totalNumProjects
-            }); 
+                Books = paginatedBooks,
+                TotalNumBooks = totalNumBooks
+            });
         }
         
     }
