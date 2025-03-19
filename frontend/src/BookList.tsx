@@ -24,47 +24,40 @@ function BookList() {
     }, [pageSize, pageNumber, totalItems, pageOrder]); //dependency array or what to watch for
     return (
         <>
-            <h1>Book List</h1>
+            <h1 style={{ color: 'red' }}>Book List</h1> 
             <br />
-            {books.map((b) => (
-                <div id="bookCard" className="card">
-                    <h3 className="card-title">{b.title}</h3>
-                    <div className="card-body">
-                        <ul className="list-unstyled">
-                            <li>
-                                <strong>Author: </strong>
-                                {b.author}
-                            </li>
-                            <li>
-                                <strong>Regional Program: </strong>
-                                {b.publisher}
-                            </li>
-                            <li>
-                                <strong>Impact: </strong>
-                                {b.isbn} Individuals Served
-                            </li>
-                            <li>
-                                <strong>Phase: </strong>
-                                {b.classification}
-                            </li>
-                            <li>
-                                <strong>Functionality Status: </strong>
-
-                                {b.pageCount}
-                            </li>
-                        </ul>
+            <div className="book-grid">
+                {books.map((b, index) => (
+                    <div key={index} className="flip-card">
+                        <div className="flip-card-inner">
+                            {/* Front of the card */}
+                            <div className="flip-card-front">
+                                <h3 className="card-title">{b.title}</h3>
+                            </div>
+                            {/* Back of the card */}
+                            <div className="flip-card-back">
+                                <div className="card-body">
+                                    <ul className="list-unstyled">
+                                        <li><strong>Author:</strong> {b.author}</li>
+                                        <li><strong>Publisher:</strong> {b.publisher}</li>
+                                        <li><strong>ISBN:</strong> {b.isbn}</li>
+                                        <li><strong>Classification:</strong> {b.classification}</li>
+                                        <li><strong>Page Count:</strong> {b.pageCount}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            ))}
-            <br />
+                ))}
+            </div>
 
+            <br />
             <button
                 disabled={pageNumber === 1}
                 onClick={() => setPageNumber(pageNumber - 1)}
             >
                 Previous
             </button>
-
             {[...Array(totalPages)].map((_, index) => (
                 <button
                     key={index + 1}
@@ -74,14 +67,12 @@ function BookList() {
                     {index + 1}
                 </button>
             ))}
-
             <button
                 disabled={pageNumber === totalPages}
                 onClick={() => setPageNumber(pageNumber + 1)}
             >
                 Next
             </button>
-
             <br />
             <label>
                 Results per page:
