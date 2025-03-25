@@ -7,7 +7,7 @@ const CartSummary = () => {
     const totalAmount = cart.reduce((sum,item) => sum + item.price, 0);
 
     return (
-        <div style={{
+        <div className='text-primary' style={{
             position: 'fixed',
             top: '10px',
             right:'20px',
