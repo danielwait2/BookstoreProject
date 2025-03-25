@@ -13,10 +13,14 @@ namespace BookStoreProject.API.Controllers
         public BookStoreController(BookStoreDbContext temp) => _bookstoreContext = temp;
 
         [HttpGet("AllProjects")]
-        public IActionResult GetProjects(int pageSize = 5, int pageNumber = 1, string pageOrder = "az")
+        public IActionResult GetProjects(int pageSize = 5, int pageNumber = 1, string pageOrder = "az",  [FromQuery] List<string>? projectTypes=null)
         {
             var query = _bookstoreContext.Books.AsQueryable();
-
+            if (projectTypes != null && projectTypes.Any())
+            {
+                query = query.Where(p => projectTypes.Contains(p.Category));
+            }
+            
             // Apply ordering based on pageOrder
             if (pageOrder.ToLower() == "az")
             {
@@ -31,13 +35,23 @@ namespace BookStoreProject.API.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var totalNumBooks = _bookstoreContext.Books.Count();
+            var totalNumBooks = query.Count();
 
             return Ok(new
             {
                 Books = paginatedBooks,
                 TotalNumBooks = totalNumBooks
             });
+        }
+        
+        
+        [HttpGet("GetBookCategory")]
+        public IActionResult GetBookCategory()
+        {
+            var bookCategories = _bookstoreContext.Books
+                .Select(p => p.Category).Distinct().ToList();
+         
+            return Ok(bookCategories);
         }
         
     }

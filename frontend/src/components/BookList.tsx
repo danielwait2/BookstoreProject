@@ -1,18 +1,24 @@
-import { Book } from './types/book.ts';
+import { useNavigate } from 'react-router-dom';
+import { Book } from '../types/book.ts';
 import { useEffect, useState } from 'react';
 
-function BookList() {
+function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [pageOrder, setPageOrder] = useState<string>('az');
+    const navigate = useNavigate();
 
     useEffect(() => {
+        
         const fetchProjects = async () => {
+            const categoryParams = (selectedCategories)
+                .map((cat: any) => `projectTypes=${encodeURIComponent(cat)}`)
+                .join('&');
             const response = await fetch(
-                `https://localhost:5000/api/BookStore/AllProjects?pageSize=${pageSize}&pageNumber=${pageNumber}&pageOrder=${pageOrder}`
+                `https://localhost:5000/api/BookStore/AllProjects?pageSize=${pageSize}&pageNumber=${pageNumber}&pageOrder=${pageOrder}${selectedCategories.length > 0 ? `&${categoryParams}` : ''}`
             );
             const data = await response.json();
             setBooks(data.books);
@@ -21,10 +27,10 @@ function BookList() {
         };
 
         fetchProjects();
-    }, [pageSize, pageNumber, totalItems, pageOrder]); //dependency array or what to watch for
+    }, [pageSize, pageNumber, totalItems, pageOrder, selectedCategories]); //dependency array or what to watch for
     return (
         <>
-            <h1 style={{ color: 'red' }}>Book List</h1> 
+            <h1 style={{ color: 'red' }}>Book List</h1>
             <br />
             <div className="book-grid">
                 {books.map((b, index) => (
@@ -38,12 +44,35 @@ function BookList() {
                             <div className="flip-card-back">
                                 <div className="card-body">
                                     <ul className="list-unstyled">
-                                        <li><strong>Author:</strong> {b.author}</li>
-                                        <li><strong>Publisher:</strong> {b.publisher}</li>
-                                        <li><strong>ISBN:</strong> {b.isbn}</li>
-                                        <li><strong>Classification:</strong> {b.classification}</li>
-                                        <li><strong>Page Count:</strong> {b.pageCount}</li>
+                                        <li>
+                                            <strong>Author:</strong> {b.author}
+                                        </li>
+                                        <li>
+                                            <strong>Publisher:</strong>{' '}
+                                            {b.publisher}
+                                        </li>
+                                        <li>
+                                            <strong>ISBN:</strong> {b.isbn}
+                                        </li>
+                                        <li>
+                                            <strong>Classification:</strong>{' '}
+                                            {b.classification}
+                                        </li>
+                                        <li>
+                                            <strong>Page Count:</strong>{' '}
+                                            {b.pageCount}
+                                        </li>
                                     </ul>
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={() =>
+                                            navigate(
+                                                `/confirmation/${b.bookID}/${b.title}/${b.price}`
+                                            )
+                                        }
+                                    >
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
