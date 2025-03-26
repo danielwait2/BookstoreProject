@@ -5,6 +5,8 @@ import { useCart } from '../context/CartContext';
 function CartPage() {
     const navigate = useNavigate();
     const { cart, removeFromCart } = useCart();
+    const totalAmount = cart.reduce((sum, item) => sum + item.subtotal, 0); 
+    
     return (
         <div>
             <h2>Your cart</h2>
@@ -17,7 +19,7 @@ function CartPage() {
                             <li key={item.bookID}>
                                 {item.title}:   <strong>Qty:</strong>
                                 {item.quantity}{' '}
-                                <br /><strong>$</strong>{item.subtotal}{' '}
+                                <br /><strong>$</strong>{item.subtotal = item.price * item.quantity}{' '}
                                 <button
                                     onClick={() =>
                                         removeFromCart(item.bookID)
@@ -30,7 +32,7 @@ function CartPage() {
                     </ul>
                 )}
             </div>
-            <h3>Total: </h3>
+            <h3>Total: ${totalAmount.toFixed(2)}</h3>
             <button>Checkout</button>
             <button onClick={() => navigate('/')}>
                 Continue Browsing

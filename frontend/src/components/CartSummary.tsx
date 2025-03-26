@@ -4,7 +4,7 @@ import { useCart } from "../context/CartContext";
 const CartSummary = () => {
     const navigate = useNavigate();
     const {cart} = useCart();
-    const totalAmount = cart.reduce((sum,item) => sum + item.price, 0);
+    const totalAmount = cart.reduce((sum, item) => sum + item.subtotal, 0); 
 
     return (
         <div className='text-primary' style={{
@@ -19,7 +19,7 @@ const CartSummary = () => {
             alignItems: 'center',
             boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
             fontSize: '16px'
-        }} onClick={() => navigate('/cart')}>🛒<strong>{totalAmount.toFixed(2)}</strong>
+        }} onClick={() => navigate('/cart')}><strong> ${totalAmount.toFixed(2)}</strong>🛒
         </div>
     );
 };

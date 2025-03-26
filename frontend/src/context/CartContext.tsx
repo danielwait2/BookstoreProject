@@ -22,7 +22,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 c.bookID === item.bookID
                     ? {
                           ...c,
-                          donationAmount:
+                          quantity:
                               c.quantity + item.quantity,
                       }
                     : c
