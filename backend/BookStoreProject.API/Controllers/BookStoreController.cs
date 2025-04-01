@@ -53,6 +53,46 @@ namespace BookStoreProject.API.Controllers
          
             return Ok(bookCategories);
         }
+        [HttpPost("AddBook")]
+        public IActionResult AddBook([FromBody]Book newBook)
+        {
+            _bookstoreContext.Books.Add(newBook);
+            _bookstoreContext.SaveChanges();
+            return Ok(newBook);
+        }
+
+        [HttpPut("UpdateBook/{bookID}")]
+        public IActionResult UpdateBook(int bookID, [FromBody] Book updatedBook)
+        {
+            var existingBook = _bookstoreContext.Books.Find(bookID);
+            existingBook.BookID = updatedBook.BookID;
+            existingBook.Title = updatedBook.Title;
+            existingBook.Author = updatedBook.Author;
+            existingBook.Publisher = updatedBook.Publisher;
+            existingBook.ISBN = updatedBook.ISBN;
+            existingBook.Classification = updatedBook.Classification;
+
+            _bookstoreContext.Books.Update(existingBook);
+            _bookstoreContext.SaveChanges();
+
+            return Ok(existingBook);
+        }
+
+        [HttpDelete("DeleteBook/{bookID}")]
+            public IActionResult DeleteBook(int bookID)
+            {
+                var book = _bookstoreContext.Books.Find(bookID);
+                if (book == null)
+                {
+                    return NotFound(new {message = "project not found"});
+                }
         
-    }
+                _bookstoreContext.Books.Remove(book);
+                _bookstoreContext.SaveChanges();
+
+                // shows that the delete was successful
+                return NoContent();
+            }
+            
+        }
 }

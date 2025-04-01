@@ -51,6 +51,7 @@
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.csproj.CoreCompileInputs.cache
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.MvcApplicationPartsAssemblyInfo.cs
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.MvcApplicationPartsAssemblyInfo.cache
+/Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.sourcelink.json
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/staticwebassets.build.json
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/staticwebassets.development.json
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/staticwebassets/msbuild.BookStoreProject.API.Microsoft.AspNetCore.StaticWebAssets.props
@@ -65,4 +66,3 @@
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.pdb
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.genruntimeconfig.cache
 /Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/ref/BookStoreProject.API.dll
-/Users/danielwait/Documents/IS_CORE/IS413/BookStoreProject/backend/BookStoreProject.API/obj/Debug/net8.0/BookStoreProject.API.sourcelink.json

@@ -1,33 +1,49 @@
 import { useNavigate } from 'react-router-dom';
 import { Book } from '../types/book.ts';
 import { useEffect, useState } from 'react';
+import { fetchBooks } from '../api/BooksAPI.tsx';
 
 function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [pageOrder, setPageOrder] = useState<string>('az');
     const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         
-        const fetchProjects = async () => {
-            const categoryParams = (selectedCategories)
-                .map((cat: any) => `projectTypes=${encodeURIComponent(cat)}`)
-                .join('&');
-            const response = await fetch(
-                `https://localhost:5000/api/BookStore/AllProjects?pageSize=${pageSize}&pageNumber=${pageNumber}&pageOrder=${pageOrder}${selectedCategories.length > 0 ? `&${categoryParams}` : ''}`
-            );
-            const data = await response.json();
-            setBooks(data.books);
-            setTotalItems(data.totalNumBooks);
-            setTotalPages(Math.ceil(totalItems / pageSize));
+        const loadBooks = async () => {
+            try{
+                setLoading(true);
+                const data = await fetchBooks(
+                    pageSize,
+                    pageNumber,
+                    selectedCategories
+                );
+                setBooks(data.books);
+                setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
+            } catch (error) {
+                setError((error as Error).message);
+            }
+            finally {
+                setLoading(false);
+            }
         };
 
-        fetchProjects();
-    }, [pageSize, pageNumber, totalItems, pageOrder, selectedCategories]); //dependency array or what to watch for
+        loadBooks();
+    }, [pageSize, pageNumber, pageOrder, selectedCategories]); //dependency array or what to watch for
+
+    if (loading) {
+        return <p>Loading books...</p>;
+    }
+    if (error) {
+        return <p className="text-red-500">Error loading books: {error}</p>;
+    }
+
+
     return (
         <>
             <h1 style={{ color: 'red' }}>Book List</h1>
