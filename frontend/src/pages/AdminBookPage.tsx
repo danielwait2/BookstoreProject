@@ -53,7 +53,7 @@ const AdminBookPage = () => {
             <h1>Admin - books</h1>
             {!showForm && (
                 <button
-                    className="btn btn-sucess mb-3"
+                    className="btn btn-success mb-3"
                     onClick={() => setShowForm(true)}
                 >
                     Add book
@@ -84,8 +84,8 @@ const AdminBookPage = () => {
                 />
             )}
 
-            <table>
-                <thead>
+            <table className=" table table-striped table-bordered">
+                <thead className="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
