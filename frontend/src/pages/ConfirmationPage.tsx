@@ -1,5 +1,5 @@
 import WelcomeBand from '../components/WelcomeBand';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 import { CartItem } from '../types/cartItem';
